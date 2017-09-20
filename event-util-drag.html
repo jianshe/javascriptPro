@@ -5,15 +5,37 @@
     <title>Title</title>
     <style type="text/css">
         .content {
-            width: 300px;
+            border: 1px solid #ddd;
+            background:#006600;
+            color: #ffffff;
+            display: inline-block;
+            height: 100px;
+            line-height: 100px;
+            text-align: center;
+            width: 100px;
+        }
+        .target-con{
+            border: 1px solid #ddd;
+            background: #ffffff;
+            color: #000000;
+            display: inline-block;
             height: 300px;
-            border: 1px solid #fff1dd;
+            line-height: 300px;
+            text-align: center;
+            width: 300px;
+        }
+        .target-con.over{
+            border: 1px dashed #000;
+            -webkit-transform: scale(0.8, 0.8);
         }
     </style>
 </head>
 <body>
-<div id="droptarget" class="content">
-    拖放区域
+<div id="droptarget" class="content" draggable="true">
+</div>
+
+<div id="movetarget" class="target-con">
+    待移入区域
 </div>
 <script type="text/javascript">
     //跨浏览器的事件对象
@@ -112,16 +134,32 @@
             }
         }
     };
-    //1.拖放事件
-    var droptarget = document.getElementById("droptarget");
-    EventUtil.addHandler(droptarget, "dragover", function (event) {
+    //拖放事件：默认情况下浏览器阻止所有的拖放操作，所以需要监听dragenter或者dragover取消浏览器默认行为使元素可拖放。
+    var dropTarget = document.getElementById("droptarget"),movetarget = document.getElementById("movetarget");
+    EventUtil.addHandler(dropTarget, "dragstart", function (event) {
+        event.dataTransfer.setData('text/plain', 'droptarget');
+    });
+    EventUtil.addHandler(movetarget, "dragover", function (event) {
         EventUtil.preventDefault(event);
     });
-    EventUtil.addHandler(droptarget, "dragenter", function (event) {
-        EventUtil.preventDefault(event);
+    EventUtil.addHandler(movetarget, "dragenter", function (event) {
+        if (event.target.classList.contains('target-con')) {
+            event.target.classList.add('over');
+        }
     });
-    EventUtil.addHandler(droptarget, "drop", function (event) {
-        EventUtil.preventDefault(event);
+    EventUtil.addHandler(movetarget, "dropleave", function (event) {
+        if (event.target.classList.contains('target-con')) {
+            event.target.classList.remove('over');
+        }
+    });
+    EventUtil.addHandler(movetarget, "drop", function (event) {
+        var id = event.dataTransfer.getData('text/plain');
+        var src = document.getElementById(id);
+        var target = event.target;
+        if (target.classList.contains('target-con')) {
+            target.appendChild(src);
+            target.classList.remove('over');
+        }
     });
 
 </script>
