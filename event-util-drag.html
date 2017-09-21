@@ -19,10 +19,10 @@
             background: #ffffff;
             color: #000000;
             display: inline-block;
-            height: 300px;
-            line-height: 300px;
+            height: 200px;
+            line-height: 200px;
             text-align: center;
-            width: 300px;
+            width: 200px;
         }
         .target-con.over{
             border: 1px dashed #000;
@@ -35,105 +35,9 @@
 </div>
 
 <div id="movetarget" class="target-con">
-    待移入区域
 </div>
+<script type="text/javascript" src="common/event-util.js"></script>
 <script type="text/javascript">
-    //跨浏览器的事件对象
-    var EventUtil = {
-        addHandler: function (element, type, handler) {
-            if (element.addEventListener) {
-                element.addEventListener(type, handler, false);
-            } else if (element.attachEvent) {
-                element.attachEvent("on" + type, handler);
-            } else {
-                element["on" + type, handler];
-            }
-        },
-        getEvent: function (event) {
-            return event ? event : window.event;
-        },
-        getTarget: function (event) {
-            return event.target || event.srcElement;
-        },
-        getRelatedTarget: function (event) {
-            if (event.relatedTarget) {
-                return event.relatedTarget;
-            } else if (event.toElement) {
-                return event.toElement;
-            } else if (event.fromElement) {
-                return event.fromElement;
-            } else {
-                return null;
-            }
-        },
-        getButton: function (event) {
-            if (document.implementation.hasFeature("MouseEvents", "2.0")) {
-                return event.button;
-            } else {
-                switch (event.button) {
-                    case 0:
-                    case 1:
-                    case 3:
-                    case 5:
-                    case 7:
-                        return 0;
-                    case 2:
-                    case 6:
-                        return 1;
-                    case 4:
-                        return 2;
-                }
-            }
-        },
-        getWheelDelta: function (event) {
-            if (event.wheelDelta) {
-                return (client.engine.opera && client.engine.opera < 9.5 ? -event.wheelDelta : event.wheelDelta);
-            } else {
-                return -event.detail * 40;
-            }
-        },
-        getCharCode: function (event) {
-            if (typeof event.charCode == "number") {
-                return event.charCode;
-            } else {
-                return event.keyCode;
-            }
-        },
-        getClipboardText: function (event) {
-            var clipboardData = (event.clipboardData || window.clipboardData);
-            return clipboardData.getData("text");
-        },
-        setClipboardText: function (event, value) {
-            if (event.clipboardData) {
-                return event.clipboardData.setData("text/plain", value);
-            } else if (window.clipboardData) {
-                return window.clipboardData.setData("text", value);
-            }
-        },
-        preventDefault: function (event) {
-            if (event.preventDefault) {
-                event.preventDefault();
-            } else {
-                event.returnValue = false;
-            }
-        },
-        removeHandler: function (element, type, handler) {
-            if (element.removeEventListener) {
-                element.removeEventListener(type, handler, false);
-            } else if (element.detachEvent) {
-                element.detachEvent("on" + type, handler);
-            } else {
-                element["on" + type] = null;
-            }
-        },
-        stopPropagation: function (event) {
-            if (event.stopPropagation) {
-                event.stopPropagation();
-            } else {
-                event.cancelBubble = true;
-            }
-        }
-    };
     //拖放事件：默认情况下浏览器阻止所有的拖放操作，所以需要监听dragenter或者dragover取消浏览器默认行为使元素可拖放。
     var dropTarget = document.getElementById("droptarget"),movetarget = document.getElementById("movetarget");
     EventUtil.addHandler(dropTarget, "dragstart", function (event) {
@@ -147,7 +51,7 @@
             event.target.classList.add('over');
         }
     });
-    EventUtil.addHandler(movetarget, "dropleave", function (event) {
+    EventUtil.addHandler(movetarget, "dragleave", function (event) {
         if (event.target.classList.contains('target-con')) {
             event.target.classList.remove('over');
         }
