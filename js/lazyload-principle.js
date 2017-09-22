@@ -10,7 +10,7 @@ function isInSight(el){
     const clientHeight = window.innerHeight;
     return bound.top <= clientHeight+100;
 }
-function checkImage(){
+function checkImgs(){
     const imgs = document.querySelectorAll('.my-photo');
     Array.from(imgs).forEach(el =>{
         if(isInSight(el)){
@@ -24,9 +24,24 @@ function loadImg(el){
         el.src = source;
     }
 }
-window.onscroll  = function(){
-    checkImage();
-};
+//函数节流:让一个函数不要执行的太频繁，减少一些过快的调用来节流
+function throttle(fn, mustRun = 500) {
+    const timer = null;
+    let previous = null;
+    return function() {
+        const now = new Date();
+        const context = this;
+        const args = arguments;
+        if (!previous){
+            previous = now;
+        }
+        const remaining = now - previous;
+        if (mustRun && remaining >= mustRun) {
+            fn.apply(context, args);
+            previous = now;
+        }
+    }
+}
 //方法3
 /*
 function checkImgs() {
