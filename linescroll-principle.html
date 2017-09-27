@@ -1,0 +1,309 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>滚动效果</title>
+    <link rel="stylesheet" href="css/normalize.css?v=111"/>
+    <link rel="stylesheet" href="css/linescroll.css"/>
+    <script type="text/javascript" src="lib/jquery.min.js"></script>
+</head>
+<body>
+<div class="container">
+    <!--多行滚动效果 -->
+    <ul class="ssjp-1">
+        <li>
+            <div class="index_avat">
+                <a href="http://web.static.emoney.cn/soft/txcgdsyqq/livelist.html" target="_blank">
+                    <img src="http://static.emoney.cn/webupload/emoneylive/2017/6/anser_d5f15ffc-73c2-4d03-a52b-ccd4a3f64eda.png"
+                         width="48">
+                </a>
+            </div>
+            <div class="index_userinfo">
+                <a href="http://web.static.emoney.cn/soft/txcgdsyqq/livelist.html" target="_blank">资金比值看盘</a>
+            </div>
+            <span class="index_time">13:33</span>
+
+            <div class="index_title">
+                <a href="http://web.static.emoney.cn/soft/txcgdsyqq/livelist.html" target="_blank">整点资金播报：上证大盘1：-1.317，深
+                    成 指1：-1.385，中 小 板1：-1.363，创 业 板1：-1.228</a>
+            </div>
+            <div class="clr2"></div>
+        </li>
+        <li>
+            <div class="index_avat">
+                <a href="http://web.static.emoney.cn/soft/txcgdsyqq/livelist.html" target="_blank">
+                    <img src="http://static.emoney.cn/webupload/emoneylive/2017/9/anser_970d4e19-2a4c-4b5e-9189-1d236fe132cd.bmp"
+                         width="48">
+                </a>
+            </div>
+            <div class="index_userinfo">
+                <a href="http://web.static.emoney.cn/soft/txcgdsyqq/livelist.html" target="_blank">资金比值看盘</a>
+            </div>
+            <span class="index_time">13:33</span>
+
+            <div class="index_title">
+                <a href="http://web.static.emoney.cn/soft/txcgdsyqq/livelist.html" target="_blank">整点资金播报：上证大盘1：-1.317，深
+                    成 指1：-1.385，中 小 板1：-1.363，创 业 板1：-1.228</a>
+            </div>
+            <div class="clr2"></div>
+        </li>
+        <li>
+            <div class="index_avat">
+                <a href="http://web.static.emoney.cn/soft/txcgdsyqq/livelist.html" target="_blank">
+                    <img src="http://static.emoney.cn/webupload/emoneylive/2017/9/anser_96670ea6-d545-4367-ad11-c2c9508c313b.bmp"
+                         width="48">
+                </a>
+            </div>
+            <div class="index_userinfo">
+                <a href="http://web.static.emoney.cn/soft/txcgdsyqq/livelist.html" target="_blank">资金比值看盘</a>
+            </div>
+            <span class="index_time">13:33</span>
+
+            <div class="index_title">
+                <a href="http://web.static.emoney.cn/soft/txcgdsyqq/livelist.html" target="_blank">整点资金播报：上证大盘1：-1.317，深
+                    成 指1：-1.385，中 小 板1：-1.363，创 业 板1：-1.228</a>
+            </div>
+            <div class="clr2"></div>
+        </li>
+    </ul>
+    <script type="text/javascript" src="components/linescroll.js"></script>
+    <script type="text/javascript">
+        $(".ssjp-1").newScroll();
+    </script>
+    <!-- 单行滚动效果 方法一：利用jquery animate函数-->
+    <div class="pad-con mt20">
+        <p id="lastSignInUser" class="pad">
+            <span>恭喜</span>
+            <span class="no-swap">--</span>
+            <span>成功报名大赛</span>
+        </p>
+    </div>
+    <script type="text/javascript">
+        var globalEnterAcc = 0;
+        function startScroll(json) {
+            if (!json || !json.data || !json.data.length) return;
+            var length = json.data.length;
+            var index = globalEnterAcc >= length ? (globalEnterAcc = 0) : globalEnterAcc;
+            globalEnterAcc++;
+            var data = json.data[index];
+            var height = $("#lastSignInUser").height();
+            $("#lastSignInUser").animate({top: (0 - height) + "px"}, 800, function () {
+                $("#lastSignInUser").html("<span>恭喜</span><span class='nane no-swap'>" + data["uidNick"] + "</span><span>成功报名大赛</span>")
+            }).animate({top: height + "px"}, 0).animate({top: 0}, 800);
+        }
+        setInterval(function () {
+            var json = {
+                data: [{"uidNick": "国土财富"}, {"uidNick": "只信自己的判断"}, {"uidNick": "海天一梦"}]
+            }
+            startScroll(json);
+        }, 3e3);
+    </script>
+    <!-- 方法二: 封装jquery插件scroll.js-->
+    <div class="bcon">
+        <!-- start -->
+        <div class="list_lh">
+            <ul>
+                <li>
+                    <p>恭喜<span>乾隆买股</span>成功报名大赛</p>
+                </li>
+                <li>
+                    <p>恭喜<span>hello我喜欢</span>成功报名大赛</a></p>
+                </li>
+                <li>
+                    <p>恭喜<span>乾隆买股</span>成功报名大赛</a></p>
+                </li>
+                <li>
+                    <p>恭喜<span>高手揉揉成</span>成功报名大赛</a></p>
+                </li>
+                <li>
+                    <p>恭喜<span>股友Z6YMZ5</span>成功报名大赛</a></p>
+                </li>
+            </ul>
+        </div>
+        <!-- end -->
+    </div>
+    <script type="text/javascript" src="components/scroll.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            $("div.list_lh").myScroll({
+                speed: 40, //数值越大，速度越慢
+                rowHeight: 44 //li的高度
+            });
+        });
+    </script>
+    <!--单行滚动效果之水平滚动-->
+    <div class="line-box">
+        <i class="note"></i>
+
+        <div class="msg" id="tip">
+            <p>我是来测试单行滚动的！！！！！！</p>
+        </div>
+    </div>
+    <script type="text/javascript">
+        var setIntervalFun = function ($child, $obj) {
+            var initLeft = 0;
+            timer = setInterval(function () {
+                initLeft = $obj.scrollLeft();
+                initLeft++;
+                if (initLeft >= $child.width()) {
+                    initLeft -= $child.width();
+                }
+                $obj.scrollLeft(initLeft);
+            }, 30);
+        };
+        var scrollLeft = function ($obj) {
+            var $child = $obj.find("p").clone();
+            $obj.append($child);
+            setIntervalFun($child, $obj);
+            $obj.hover(function () {
+                clearInterval(timer);
+            }, function () {
+                setIntervalFun($child, $obj);
+            });
+        };
+        scrollLeft($("#tip"));
+    </script>
+    <!-- 多行文字滚动-->
+    <div class="comments-box">
+        <div class="scroll-content" id="J_scroll-0">
+            <ul class="first">
+                <li>
+                    <p class="text">
+                        <span class="random-color">乐福</span>
+                        <span class="own-st">：参加过这么多活动，还是这里直接给现金最给力！</span>
+                    </p>
+                </li>
+                <li>
+                    <p class="text">
+                        <span class="random-color">股市阿拉丁</span>
+                        <span class="own-st">哇塞！真的有现金拿诶！</span>
+                    </p>
+                </li>
+                <li>
+                    <p class="text">
+                        <span class="random-color">宁波老崔</span>
+                        <span class="own-st">可以可以，上次分了挺多钱的，现在大盘不好，也能捞一点。</span>
+                    </p>
+                </li>
+                <li>
+                    <p class="text">
+                        <span class="random-color">超级小野哥</span>
+                        <span class="own-st">虽然大盘暴跌，但是我还有现金拿~不要羡慕哥。</span>
+                    </p>
+                </li>
+                <li>
+                    <p class="text">
+                        <span class="random-color">隔壁李大帅</span>
+                        <span class="own-st">参加过这么多活动，还是这里直接给现金最给力！</span>
+                    </p>
+                </li>
+            </ul>
+        </div>
+        <div class="scroll-content" id="J_scroll-1">
+            <ul class="second">
+                <li>
+                    <p class="text">
+                        <span class="random-color">可乐格格</span>
+                        <span class="own-st">：虽然这次没分钱，但是上一届分得蛮多的。</span>
+                    </p>
+                </li>
+                <li>
+                    <p class="text">
+                        <span class="random-color">锅没了</span>
+                        <span class="own-st">：本来亏的不像样了，但是来这里赚了后还能多赚一份现金，弥补了没参加之前的损失！</span>
+                    </p>
+                </li>
+                <li>
+                    <p class="text">
+                        <span class="random-color">巨波投资</span>
+                        <span class="own-st">：本来我们赚的多收益高，现在赚的起飞了简直！</span>
+                    </p>
+                </li>
+                <li>
+                    <p class="text">
+                        <span class="random-color">现金为父</span>
+                        <span class="own-st">谁能打出“现金”我认作他父亲。</span>
+                    </p>
+                </li>
+                <li>
+                    <p class="text">
+                        <span class="random-color">可怕的小芸</span>
+                        <span class="own-st">上周暴跌确实没躲过，但是之前靠的额外现金奖励 这波不亏。</span>
+                    </p>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    var rgba = function (r, g, b, a) {
+        return ["rgba", "(", [r, g, b, a].join(), ")"].join("");
+    };
+    /** 随机添加颜色**/
+    var randomColor = function () {
+        var tags = $(".random-color");
+        for (var i = 0; i < tags.length; i++) {
+            var r = Math.floor(Math.random() * 255);
+            var g = Math.floor(Math.random() * 255);
+            var b = Math.floor(Math.random() * 255);
+            var a = Math.random() * 10;
+            $(tags[i]).css("color", rgba(r, g, b, a));
+        }
+    };
+    /** 实现原理：获取待滚动的ul下面的所有li的宽度，并赋值为ul，刚开始时将ul下第一个li作拷贝，并追加到ul的后面，然后获取每一个li宽度，每隔一段将第一个li向左频繁移动，直到第一个i的值大于li宽度时移除并变量值复位，继续进行循环操作。**/
+    var scrollAnimation = function (dom) {
+        var $wrap = $(dom);
+        var $ul = $wrap.find('ul');
+        var wrap_width = $wrap.width();
+        var timer = null;
+        var li_w = 0;
+
+        $ul.find('li').each(function () {
+            li_w += $(this).outerWidth();//outerWidth()方法返回第一个匹配元素的外部宽度。包含padding和border
+        });
+
+        if (li_w <= wrap_width) {
+            return false;
+        }
+
+        $ul.css('width', li_w);
+
+        var i = 0;
+        var x = 0;
+
+        function _marquee() {
+            var _w = $ul.find('li:eq(0)').outerWidth();
+            i++;
+            if (i >= _w) {
+                $ul.find('li:eq(0)').remove();
+                i = 0;
+                x = 0;
+            } else {
+                $ul.find('li:eq(0)').css('marginLeft', -i);
+                if (i >= Math.max(_w - wrap_width, 0)) {
+                    if (x === 0) {
+                        var _li = $ul.find('li:eq(0)').clone(true);
+                        $ul.append(_li.css('marginLeft', 0));
+                        x = 1;
+                    }
+                }
+            }
+            var _ul_w = 0;
+            $ul.find('li').each(function () {
+                _ul_w += $(this).outerWidth();
+            });
+
+            $ul.css('width', _ul_w);
+        }
+        timer = setInterval(_marquee, 15);
+    };
+    randomColor();
+    setTimeout(function () {
+        for (var i = 0; i < 2; i++) {
+            scrollAnimation("#J_scroll-" + i);//让文字滚动起来
+        }
+    }, 500);
+</script>
+</div>
+</body>
+</html>

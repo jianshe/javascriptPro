@@ -1,0 +1,209 @@
+.container{
+    margin: 0 auto;
+    width: 1220px;
+    clear: both;
+}
+.mt20{
+    margin-top: 20px;
+}
+.ssjp-1{
+    background-color: #fff;
+    border: 1px solid #ffeaea;
+    height: 260px;
+    margin: 10px auto;
+    overflow: hidden;
+    width: 610px;
+}
+.ssjp-1 li{
+    border-bottom:1px dashed #dbdbdb;
+    margin-left: 10px;
+    margin-right: 10px;
+    padding: 15px 0;
+}
+.ssjp-1 .index_avat {
+    float: left;
+    width: 48px;
+    height: 48px;
+}
+.ssjp-1 .index_userinfo {
+    float: left;
+    padding-left: 10px;
+    line-height: 48px;
+    font-size:18px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    width:115px;
+}
+.ssjp-1 .index_time {
+    float: left;
+    margin-right: 20px;
+    width: 60px;
+    line-height: 48px;
+    color: #666;
+    text-align: right;
+    font-size:18px;
+}
+.ssjp-1 .index_title {
+    float: left;
+    width: 300px;
+    padding-left: 0;
+    line-height: 48px;
+    font-size: 16px;
+    color: #333;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+.ssjp-1 .index_gocast {
+    float: right;
+    margin-top: 5px;
+    width: 130px;
+    height: 40px;
+    background: #c40000;
+    font-size: 16px;
+    color: #fff !important;
+    line-height: 40px;
+    text-align: center;
+    text-decoration: none;
+}
+.ssjp-1 .index_gocast:hover{
+    background: #e53b3b;
+}
+.ssjp-1 .clr2 {
+    clear: both;
+    height: 1px;
+    overflow: hidden;
+}
+/** 单行滚动 样式**/
+.pad-con{
+    border: 1px solid #ddd;
+    text-align: center;
+    position: relative;
+    margin: 0 auto;
+    overflow: hidden;
+    width: 300px;
+    height: 32px;
+}
+.pad-con .pad{
+    color: #000;
+    display: inline-block;
+    font-size: 16px;
+    font-weight: normal;
+    line-height: 32px;
+    margin: 0;
+    position: relative;
+}
+.pad .no-swap {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    vertical-align: bottom;
+}
+
+.bcon {
+    width: 300px;
+    border: 1px solid #eee;
+    margin: 30px auto;
+}
+
+.list_lh {
+    height: 44px;
+    overflow: hidden;
+}
+
+.list_lh li {
+    padding: 10px;
+    text-align: center;
+}
+
+.list_lh li p {
+    height: 24px;
+    line-height: 24px;
+}
+.list_lh li p span {
+    display: inline-block;
+    max-width: 100px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    vertical-align: top;
+}
+
+.line-box {
+    border: 1px solid #ddd;
+    margin: 30px auto;
+    width: 300px;
+}
+.line-box .note {
+    display: inline-block;
+    vertical-align: middle;
+    width: 26px;
+    height: 24px;
+    background: url(../img/note.png) no-repeat center;
+    background-size: contain;
+    margin: 0 12px 0 24px;
+}
+
+.line-box .msg {
+    display: inline-block;
+    width: 200px;
+    margin: 0 1px;
+    text-align: left;
+    vertical-align: middle;
+    overflow: hidden;
+    white-space: nowrap;
+}
+.line-box .msg p {
+    padding: 0 5px;
+    display: inline-block;
+    font-size: 16px;
+    color: #7e7e7e;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    min-width: 100%;
+    width: auto;
+}
+/** 多行文字滚动效果**/
+.comments-box {
+    background-color: #000;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    width:100%;
+}
+.comments-box .scroll-content {
+    height: 45px;
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+}
+.scroll-content ul {
+    display: inline-block;
+    height: 45px;
+    max-height: 45px;
+    overflow: hidden;
+    white-space: nowrap;
+}
+.comments-box .scroll-content ul > li {
+    display: inline-block;
+    line-height: 45px;
+    height: 45px;
+    padding-right: 15px;
+}
+.comments-box .scroll-content ul > li p {
+    font-size: 24px;
+    white-space: nowrap;
+}
+.comments-box .scroll-content ul > li p .own-st {
+    color: #fff;
+}
+
+
+
+
+
+
+
+
+
