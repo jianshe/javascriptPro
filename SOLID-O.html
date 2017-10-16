@@ -1,0 +1,252 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>S.O.L.I.D五大原则之开闭原则OCP</title>
+</head>
+<body>
+<div id="questions"></div>
+<script type="text/javascript">
+    /**
+     * 没有使用开闭原则编写的代码
+     *
+     * 该代码有一个限制，就是如果再增加一个question类型的话，那就需要再次修改renderQuestion里的条件语句，这明显违反了开闭原则
+     * **/
+/*    // 问题类型
+    var AnswerType = {
+        Choice: 0,
+        Input: 1
+    };
+
+    // 问题实体
+    function question(label, answerType, choices) {
+        return {
+            label: label,
+            answerType: answerType,
+            choices: choices // 这里的choices是可选参数
+        };
+    }
+
+    var view = (function () {
+        // render一个问题
+        function renderQuestion(target, question) {
+            var questionWrapper = document.createElement('div');
+            questionWrapper.className = 'question';
+
+            var questionLabel = document.createElement('div');
+            questionLabel.className = 'question-label';
+            var label = document.createTextNode(question.label);
+            questionLabel.appendChild(label);
+
+            var answer = document.createElement('div');
+            answer.className = 'question-input';
+
+            // 根据不同的类型展示不同的代码：分别是下拉菜单和输入框两种
+            if (question.answerType === AnswerType.Choice) {
+                var input = document.createElement('select');
+                var len = question.choices.length;
+                for (var i = 0; i < len; i++) {
+                    var option = document.createElement('option');
+                    option.text = question.choices[i];
+                    option.value = question.choices[i];
+                    input.appendChild(option);
+                }
+            }
+            else if (question.answerType === AnswerType.Input) {
+                var input = document.createElement('input');
+                input.type = 'text';
+            }
+
+            answer.appendChild(input);
+            questionWrapper.appendChild(questionLabel);
+            questionWrapper.appendChild(answer);
+            target.appendChild(questionWrapper);
+        }
+
+        return {
+            // 遍历所有的问题列表进行展示
+            render: function (target, questions) {
+                for (var i = 0; i < questions.length; i++) {
+                    renderQuestion(target, questions[i]);
+                };
+            }
+        };
+    })();
+
+    var questions = [
+        question('Have you used tobacco products within the last 30 days?', AnswerType.Choice, ['Yes', 'No']),
+        question('What medications are you currently using?', AnswerType.Input)
+    ];
+
+    var questionRegion = document.getElementById('questions');
+    view.render(questionRegion, questions);*/
+
+    //重构代码，使用开闭原则
+/*    function questionCreator(spec,my){
+        var that = {};
+        my = my ||{};
+
+        my.label = spec.label;
+        my.renderInput = function(){
+            throw "not implemented";
+            // 这里renderInput没有实现，主要目的是让各自问题类型的实现代码去覆盖整个方法
+        }
+
+        that.render = function(){
+            var questionWrapper = document.createElement('div');
+            questionWrapper.className = 'question';
+
+            var questionLabel = document.createElement('div');
+            questionLabel.className = 'question-label';
+            var label = document.createTextNode(spec.label);
+            questionLabel.appendChild(label);
+
+            var answer = my.renderInput();
+            // 该render方法是同样的粗合理代码
+            // 唯一的不同就是上面的一句my.renderInput()
+            // 因为不同的问题类型有不同的实现
+
+            questionWrapper.appendChild(questionLabel);
+            questionWrapper.appendChild(answer);
+            return questionWrapper;
+        }
+        return that;
+    };
+    function choiceQuestionCreator(spec) {
+        var my = {},that = questionCreator(spec, my);
+
+        //注意要后设置renderInput方法，是为了覆盖基类中的renderInput方法
+        // choice类型的renderInput实现
+        my.renderInput = function () {
+            var input = document.createElement('select');
+            var len = spec.choices.length;
+            for (var i = 0; i < len; i++) {
+                var option = document.createElement('option');
+                option.text = spec.choices[i];
+                option.value = spec.choices[i];
+                input.appendChild(option);
+            }
+
+            return input;
+        };
+
+        return that;
+    };
+    function inputQuestionCreator(spec) {
+        var my = {},that = questionCreator(spec, my);
+
+        // input类型的renderInput实现
+        my.renderInput = function () {
+            var input = document.createElement('input');
+            input.type = 'text';
+            return input;
+        };
+
+        return that;
+    };
+
+    var view = {
+        render: function(target, questions) {
+            var len = questions.length;
+            for (var i = 0; i < len; i++) {
+                target.appendChild(questions[i].render());
+            }
+        }
+    };
+
+    //声明问题的时候只需要这样做，就OK了
+    var questions = [
+        choiceQuestionCreator({
+            label: 'Have you used tobacco products within the last 30 days?',
+            choices: ['Yes', 'No']
+        }),
+        inputQuestionCreator({
+            label: 'What medications are you currently using?'
+        })
+    ];
+
+    var questionRegion = document.getElementById('questions');
+    view.render(questionRegion, questions);*/
+
+    //扩展：用原型来实现这种开闭原则
+
+    //父对象
+    function QuestionCreator(spec){
+        this.spec = spec || {label:''};
+    }
+    QuestionCreator.prototype.renderInput = function () {
+        throw "not implemented";
+        // 这里renderInput没有实现，主要目的是让各自问题类型的实现代码去覆盖整个方法
+    };
+    QuestionCreator.prototype.render = function () {
+        var questionWrapper = document.createElement('div');
+        questionWrapper.className = 'question';
+
+        var questionLabel = document.createElement('div');
+        questionLabel.className = 'question-label';
+        var label = document.createTextNode(this.spec.label);
+        questionLabel.appendChild(label);
+
+        //因为不同的问题类型有不同的实现
+        var answer = this.renderInput();
+
+        questionWrapper.appendChild(questionLabel);
+        questionWrapper.appendChild(answer);
+
+        return questionWrapper;
+    };
+
+    //choice类型的renderInput实现继承了QuestionCreator
+    function ChoiceQuestionCreator(spec) {
+        QuestionCreator.call(this,spec);
+    }
+    ChoiceQuestionCreator.prototype = new QuestionCreator();
+
+    ChoiceQuestionCreator.prototype.renderInput= function(){
+        var input = document.createElement('select');
+        var len = this.spec.choices.length;
+        for (var i = 0; i < len; i++) {
+            var option = document.createElement('option');
+            option.text = this.spec.choices[i];
+            option.value = this.spec.choices[i];
+            input.appendChild(option);
+        }
+        return input;
+    }
+    //input类型的renderInput实现继承了QuestionCreator
+    function InputQuestionCreator(spec) {
+        QuestionCreator.call(this,spec);
+    }
+    InputQuestionCreator.prototype = new QuestionCreator();
+
+    InputQuestionCreator.prototype.renderInput= function(){
+        var input = document.createElement('input');
+        input.type = 'text';
+        return input;
+    }
+    var view = {
+        render: function(target, questions) {
+            for (var i = 0; i < questions.length; i++) {
+                target.appendChild(questions[i].render());
+            }
+        }
+    };
+
+    var questions = [
+        //注意：多一个new关键字
+        new ChoiceQuestionCreator({
+            label: 'Have you used tobacco products within the last 30 days?',
+            choices: ['Yes', 'No']
+        }),
+        //注意：多一个new关键字
+        new InputQuestionCreator({
+            label: 'What medications are you currently using?'
+        })
+    ];
+
+    var questionRegion = document.getElementById('questions');
+    view.render(questionRegion, questions);
+
+</script>
+</body>
+</html>
