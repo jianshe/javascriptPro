@@ -201,6 +201,7 @@
         QuestionCreator.call(this,spec);
     }
     ChoiceQuestionCreator.prototype = new QuestionCreator();
+    ChoiceQuestionCreator.prototype.constructor = ChoiceQuestionCreator;//重新将构造函数属性给恢复回来，从而实现仅仅是继承了QuestionCreator的属性方法而不改变其他属性。
 
     ChoiceQuestionCreator.prototype.renderInput= function(){
         var input = document.createElement('select');
@@ -214,10 +215,13 @@
         return input;
     }
     //input类型的renderInput实现继承了QuestionCreator
+    //将原型链和借用构造函数的技术组合在一块，从而发挥二者之长的一种继承模式
+    //思路：使用原型链实现对原型属性和方法的继承，而通过借用构造函数来实现对实例属性的继承。这样，既通过在原型上定义方法实现了函数利用，又能够保证每个实例都有它自己的属性。
     function InputQuestionCreator(spec) {
-        QuestionCreator.call(this,spec);
+        QuestionCreator.call(this,spec);//说明：通过借用构造函数的技术解决了原型中包含引用类型值所带来的问题。
     }
     InputQuestionCreator.prototype = new QuestionCreator();
+    InputQuestionCreator.prototype.constructor = InputQuestionCreator;//重新将构造函数属性给恢复回来，从而实现仅仅是继承了QuestionCreator的属性方法而不改变其他属性。
 
     InputQuestionCreator.prototype.renderInput= function(){
         var input = document.createElement('input');
