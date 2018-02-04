@@ -1,0 +1,27 @@
+{
+  "name": "javascriptPro",
+  "version": "1.0.0",
+  "description": "Some kinds of elements developed by javascript",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "build": "babel src/index.js -o dist/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jianshe/javascriptPro.git"
+  },
+  "keywords": [],
+  "author": "jianshe",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jianshe/javascriptPro/issues"
+  },
+  "homepage": "https://github.com/jianshe/javascriptPro#readme",
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-es2015": "^6.24.1"
+  }
+}
