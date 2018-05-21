@@ -28,15 +28,21 @@
 // console.log(b); //Object { name="yy", age=26}
 // console.log(a); //Object { name="xx", age=26}
 //方法二：
+// var a = { name: 'jianshe', message: { age: 28, sex: '男' } };
+// var deepCopy = function(source) {
+//     var result = {};
+//     for (var key in source) {
+//         result[key] = typeof source[key] == 'object' ? deepCopy(source[key]) : source[key];
+//     }
+//     return result;
+// }
+// var b = deepCopy(a);
+// b.message.age = 30;
+// console.log(b.message.age);
+// console.log(a.message.age);
+
+//方法三：
 var a = { name: 'jianshe', message: { age: 28, sex: '男' } };
-var deepCopy = function(source) {
-    var result = {};
-    for (var key in source) {
-        result[key] = typeof source[key] == 'object' ? deepCopy(source[key]) : source[key];
-    }
-    return result;
-}
-var b = deepCopy(a);
-b.message.age = 30;
-console.log(b.message.age);
-console.log(a.message.age);
+var obj = JSON.parse(JSON.stringify(a));
+obj.message.age = 30;
+console.log(obj.message.age, a.message.age);
