@@ -6,4 +6,4 @@
 //5、每个函数function都有一个prototype，即原型。
 //6、每个对象都有一个__proto__属性，指向创建该对象的函数的prototype。
 //7、Object.prototype确实一个特例--它的__proto__指向的是null,切记切记!
-//8、
+//8、InstanceOf的判断队列是：沿着A的__proto__这条线来找，同时沿着B的prototype这条线来找，如果两条线能找到同一个引用，即同一个对象，那么就返回true,如果找到终点还未重合，则返回false.
