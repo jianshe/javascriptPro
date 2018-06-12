@@ -1,39 +1,31 @@
-//promise解决回调地狱的问题
-//1.开始-洗菜做饭。2.开始-做下来吃饭。3.开始-收拾碗筷。
-let state = 1;
+//promise方法的使用
+//场景1：用Promise对象实现的Ajax操作的例子
 
-function step1(resolve, reject) {
-    console.log('1.开始-洗菜做饭');
-    if (state == 1) {
-        resolve('1.洗菜做饭-完成')
-    } else {
-        reject('洗菜做饭-错误')
-    }
-}
+const getJson = function(url) {
+    const promise = new Promise(function(resolve, reject) {
+        const handler = function() {
+            if (this.readyState !== 4) {
+                return;
+            }
+            if (this.status === 200) {
+                resolve(this.response);
+            } else {
+                reject(new Error(this.statusText));
+            }
+        };
 
-function step2(resolve, reject) {
-    console.log('2.开始-做下来吃饭');
-    if (state == 1) {
-        resolve('2.做下来吃饭-完成');
-    } else {
-        reject('做下来吃饭-错误');
-    }
-}
+        const client = new XMLHttpRequest();
+        client.open("GET", url);
+        client.onreadystatechange = handler;
+        client.responseType = "json";
+        client.setRequestHeader("Accept", "application/json");
+        client.send();
+    });
+    return promise;
+};
 
-function step3(resolve, reject) {
-    console.log('3.开始-收拾碗筷');
-    if (state == 1) {
-        resolve('3.收拾碗筷-完成');
-    } else {
-        reject('收拾碗筷-错误');
-    }
-}
-new Promise(step1).then(function(val) {
-    console.log(val);
-    return new Promise(step2)
-}).then(function(val) {
-    console.log(val);
-    return new Promise(step3)
-}).then(function(val) {
-    console.log(val);
-})
+getJson("/data/list.json").then(function(json) {
+    console.log('Contents: ' + JSON.stringify(json));
+}, function(error) {
+    console.log('出错了', error);
+});
