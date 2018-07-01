@@ -11,12 +11,23 @@
 // 方法二、简单写法：去除数组的重复成员
 // let array = [2, 3, 5, 4, 5, 2, 2];
 // console.log([...new Set(array)])
-//方法三、Array.from方法可以将Set结构转为数组。
+// 方法三、利用filter，可以巧妙地去除Array的重复元素：
+
+var
+    r,
+    arr = ['apple', 'strawberry', 'banana', 'pear', 'apple', 'orange', 'orange', 'strawberry'];
+
+r = arr.filter(function (element, index, self) {
+    return self.indexOf(element) === index;
+});
+alert(r.toString());
+
+//方法四、Array.from方法可以将Set结构转为数组。
 // function dedupe(array) {
 //     return Array.from(new Set(array));
 // }
 // console.log(dedupe([1, 1, 2, 3]));
-//方法四、实现数组间的并集、交集和差集
+//方法五、实现数组间的并集、交集和差集
 // let a = new Set([1, 2, 3]);
 // let b = new Set([4, 3, 2]);
 
@@ -33,14 +44,14 @@
 // Set {1}
 
 //关于Map :Object结构提供了""字符串-值"的对应，Map结构提供了"值-值""的对应，是一种更完善的Hash结构实现。
-const map = new Map([
-    ['name', '张三'],
-    ['title', 'Author']
-]);
-map.size;
-map.has('name');
-map.has('title');
-map.get('title'); //Author
+// const map = new Map([
+//     ['name', '张三'],
+//     ['title', 'Author']
+// ]);
+// map.size;
+// map.has('name');
+// map.has('title');
+// map.get('title'); //Author
 //注意Map的键是一个简单类型的值（数字、字符串、布尔值），则只要两个值严格相等，Map将其视为一个键。Map的键实际上是跟内存地址绑定的，只要内存地址不一样，就视为两个键。
 
 //易错点;const map = new Map();map.set(['a'], 555);map.get(['a']) // undefined

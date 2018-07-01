@@ -6,33 +6,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Es6部分属性的用法</title>
-    <script type="text/javascript" src="./src/closure.js"></script>
+    <script type="text/javascript" src="./src/prototype.js"></script>
 </head>
 
 <body>
-    <h5>Es6一些属性的使用</h5>
-    <div id={this.state.id} className='echarts-line'>
-    </div>
-
+   
 </body>
 <script type="text/javascript">
-    var clourse = (function() {
-        var a = 1;
-        return function() {
-            return a++;
-        }
-    })();
-
-    class AutoId {
-        constructor() {
-            this.state = {
-                id: "EchartsLine" + clourse()
-            };
-        }
-        componentDidMount() {
-            this.myEChart = echarts.init(document.getElementById(this.state.id)); //不同id
-        }
-    }
+   
 </script>
 
 </html>
